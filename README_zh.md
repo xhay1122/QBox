@@ -85,4 +85,11 @@ npm test
 npm run lint
 ```
 
+# 开发更新日志
+
+## 2019-01-14
+* 支持剪切板上传图片
+* 支持上传重命名
+* 暂时关闭eslintrc校验
+
 ## [Document](https://github.com/LanceGin/QBox/blob/master/README.md)

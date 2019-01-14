@@ -8,7 +8,7 @@ export default class PutPolicy {
   /**
    * Generate put policy class.
    *
-   * @param scope       must have this attr.
+   * @param options       must have this attr.
    *                    the other option could find in
    *                    https://developer.qiniu.com/kodo/manual/1206/put-policy
    *
