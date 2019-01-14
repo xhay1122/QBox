@@ -17,9 +17,16 @@
     <el-dialog
       :title="preview_name"
       :visible.sync="dialogVisible"
+      :before-close="handleClosePreviewDialog"
       size="large">
-      <div class="preview">
-        <img :src="preview_url" class="preview-img">
+      <div class="preview"
+           v-loading.body="loadingImg"
+      >
+        <img
+                :src="preview_url"
+                @load="imageLoaded"
+                class="preview-img"
+        >
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="previewCopy()">复 制</el-button>
@@ -112,6 +119,7 @@
         filter: '',
         oldName: '',
         currentName: '',
+          loadingImg: false,
       };
     },
     created() {
@@ -326,6 +334,7 @@
             const link = `http://${domain}/${row.key}`;
             this.preview_name = row.key;
             this.dialogVisible = true;
+              this.loadingImg = true;
             if (row.mimeType.indexOf('image') >= 0) {
               this.preview_url = link;
             } else {
@@ -334,6 +343,13 @@
           })
           .catch();
       },
+        handleClosePreviewDialog(done) {
+            this.loadingImg = false;
+            done();
+        },
+        imageLoaded() {
+          this.loadingImg = false;
+        },
       // copy link in the preview modal
       previewCopy() {
         const bucket = this.$route.query.bucket;
@@ -427,7 +443,7 @@
   }
   .preview {
     text-align: center;
-    max-height: 300px;
+    height: 300px;
   }
   .preview-img {
     max-height: 300px;
